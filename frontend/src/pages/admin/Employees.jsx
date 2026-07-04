@@ -2,10 +2,18 @@ import React from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
-import { mockEmployees } from '../../data/mock';
-import { Filter, Plus, ChevronRight, TrendingUp, Users, Activity } from 'lucide-react';
+import { useAttendance } from '../../context/AttendanceContext';
+import { Filter, Plus, ChevronRight, TrendingUp } from 'lucide-react';
+
+const StatusDot = ({ status }) => {
+  if (status === 'checked-in') return <span className="w-2.5 h-2.5 rounded-full bg-green-500 ring-2 ring-green-200 inline-block" title="Checked In" />;
+  if (status === 'on-leave') return <span className="text-sm" title="On Leave">✈️</span>;
+  return <span className="w-2.5 h-2.5 rounded-full bg-red-500 ring-2 ring-red-200 inline-block" title="Absent" />;
+};
 
 export const Employees = () => {
+  const { employeeStatuses, updateEmployeeStatus } = useAttendance();
+
   return (
     <div className="flex flex-col h-full space-y-6">
       
@@ -92,36 +100,69 @@ export const Employees = () => {
               <tr className="bg-gray-50/50">
                 <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Employee</th>
                 <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Department</th>
-                <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Contact</th>
                 <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Check In</th>
+                <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Check Out</th>
                 <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {mockEmployees.map((emp) => (
-                <tr key={emp.id} className="hover:bg-gray-50/50 transition-colors group cursor-pointer">
+              {employeeStatuses.map((emp) => (
+                <tr key={emp.id} className="hover:bg-gray-50/50 transition-colors group">
                   <td className="py-4 px-6">
                     <div className="flex items-center gap-3">
-                      <img src={emp.avatar} alt="" className="w-10 h-10 rounded-full object-cover border border-gray-200" />
+                      <div className="relative">
+                        <img src={emp.avatar} alt="" className="w-10 h-10 rounded-full object-cover border border-gray-200" />
+                        <span className="absolute -bottom-0.5 -right-0.5 flex items-center justify-center">
+                          <StatusDot status={emp.status} />
+                        </span>
+                      </div>
                       <div>
                         <p className="text-sm font-semibold text-gray-900">{emp.name}</p>
-                        <p className="text-xs text-gray-500">{emp.role}</p>
                       </div>
                     </div>
                   </td>
                   <td className="py-4 px-6">
-                    <span className="inline-flex px-2.5 py-1 rounded-md text-xs font-medium bg-blue-50 text-info">
-                       {emp.dept}
+                    <span className="inline-flex px-2.5 py-1 rounded-md text-xs font-medium bg-blue-50 text-blue-600">Engineering</span>
+                  </td>
+                  <td className="py-4 px-6">
+                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${
+                      emp.status === 'checked-in' ? 'bg-green-50 text-green-700' :
+                      emp.status === 'on-leave' ? 'bg-blue-50 text-blue-700' :
+                      'bg-red-50 text-red-700'
+                    }`}>
+                      <StatusDot status={emp.status} />
+                      {emp.status === 'checked-in' ? 'Checked In' : emp.status === 'on-leave' ? 'On Leave' : 'Absent'}
                     </span>
                   </td>
-                  <td className="py-4 px-6 text-sm text-gray-600">{emp.email}</td>
-                  <td className="py-4 px-6">
-                    <Badge status={emp.status}>{emp.status}</Badge>
-                  </td>
+                  <td className="py-4 px-6 text-sm text-gray-600 font-mono">{emp.checkIn ?? '--:--'}</td>
+                  <td className="py-4 px-6 text-sm text-gray-600 font-mono">{emp.checkOut ?? '--:--'}</td>
                   <td className="py-4 px-6 text-right">
-                    <button className="p-2 text-gray-400 hover:text-primary-DEFAULT rounded-full hover:bg-primary-50 transition-colors opacity-0 group-hover:opacity-100">
-                       <ChevronRight size={18} />
-                    </button>
+                    <div className="flex items-center justify-end gap-2">
+                      {emp.status !== 'on-leave' && (
+                        emp.status === 'absent' ? (
+                          <button
+                            onClick={() => updateEmployeeStatus(emp.id, 'checked-in')}
+                            className="px-3 py-1 rounded-lg text-xs font-semibold bg-green-50 text-green-700 hover:bg-green-100 border border-green-200 transition-colors"
+                          >
+                            Check In
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => updateEmployeeStatus(emp.id, 'absent')}
+                            className="px-3 py-1 rounded-lg text-xs font-semibold bg-red-50 text-red-700 hover:bg-red-100 border border-red-200 transition-colors"
+                          >
+                            Check Out
+                          </button>
+                        )
+                      )}
+                      <button
+                        onClick={() => updateEmployeeStatus(emp.id, 'on-leave')}
+                        className="px-3 py-1 rounded-lg text-xs font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 transition-colors"
+                      >
+                        ✈️ Leave
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

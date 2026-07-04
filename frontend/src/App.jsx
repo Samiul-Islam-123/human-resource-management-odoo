@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AppLayout } from './layouts/AppLayout';
+import { AttendanceProvider } from './context/AttendanceContext';
 
 // Auth Pages
 import { EmployeeSignIn } from './pages/auth/EmployeeSignIn';
@@ -20,30 +21,32 @@ import { Employees as AdminEmployees } from './pages/admin/Employees';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Auth Routes */}
-        <Route path="/login" element={<EmployeeSignIn />} />
-        <Route path="/signup" element={<EmployeeSignUp />} />
-        <Route path="/admin/login" element={<AdminSignIn />} />
-        <Route path="/admin/signup" element={<AdminSignUp />} />
+    <AttendanceProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Auth Routes */}
+          <Route path="/login" element={<EmployeeSignIn />} />
+          <Route path="/signup" element={<EmployeeSignUp />} />
+          <Route path="/admin/login" element={<AdminSignIn />} />
+          <Route path="/admin/signup" element={<AdminSignUp />} />
 
-        {/* Employee Authenticated Routes */}
-        <Route path="/" element={<AppLayout role="employee" />}>
-          <Route index element={<EmployeeDashboard />} />
-          <Route path="attendance" element={<Attendance />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="time-off" element={<TimeOff />} />
-        </Route>
+          {/* Employee Authenticated Routes */}
+          <Route path="/" element={<AppLayout role="employee" />}>
+            <Route index element={<EmployeeDashboard />} />
+            <Route path="attendance" element={<Attendance />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="time-off" element={<TimeOff />} />
+          </Route>
 
-        {/* Admin Authenticated Routes */}
-        <Route path="/admin" element={<AppLayout role="admin" />}>
-          <Route index element={<Navigate to="/admin/dashboard" replace />} />
-          <Route path="dashboard" element={<AdminDashboard />} />
-          <Route path="employees" element={<AdminEmployees />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          {/* Admin Authenticated Routes */}
+          <Route path="/admin" element={<AppLayout role="admin" />}>
+            <Route index element={<Navigate to="/admin/dashboard" replace />} />
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="employees" element={<AdminEmployees />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AttendanceProvider>
   );
 }
 

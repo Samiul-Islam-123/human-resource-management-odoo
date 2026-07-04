@@ -1,7 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @import "tailwindcss";
-@config "../tailwind.config.js";
+/* @config "../tailwind.config.js"; */
+
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-primary-DEFAULT: #752df1ff;
+  --color-primary-hover: #6d28d9;
+  --color-primary-light: #ede9fe;
+
+  --color-surface: #ffffff;
+  --color-background: #f8fafc;
+
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: #3b82f6;
+
+  --color-text-main: #0f172a;
+  --color-text-muted: #64748b;
+
+  /* Font */
+  --font-sans: "Inter", sans-serif;
+
+  /* Shadow */
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
 
 @layer base {
   body {
@@ -10,17 +37,21 @@
 }
 
 @layer components {
+
   /* Minimal scrollbar for webkit */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
+
   ::-webkit-scrollbar-track {
     background: transparent;
   }
+
   ::-webkit-scrollbar-thumb {
     @apply bg-slate-200 rounded-full;
   }
+
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-slate-300;
   }

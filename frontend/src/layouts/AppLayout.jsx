@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { Search, Bell, HelpCircle } from 'lucide-react';
 import { Sidebar } from '../components/Sidebar';
+import { StatusButton } from '../components/StatusButton';
 import { mockUser } from '../data/mock';
 
 export const AppLayout = ({ role = 'employee' }) => {
@@ -52,6 +53,7 @@ export const AppLayout = ({ role = 'employee' }) => {
             <div className="h-8 w-px bg-gray-200"></div>
 
             <div className="flex items-center gap-3">
+              <StatusButton role={role} />
               <img src={mockUser.avatar} alt="Avatar" className="w-9 h-9 rounded-full object-cover border border-gray-200" />
             </div>
           </div>
