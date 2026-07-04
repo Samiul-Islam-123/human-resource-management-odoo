@@ -251,3 +251,7 @@
 {"timestamp":"2026-07-04T10:58:49.601Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
 {"timestamp":"2026-07-04T10:58:49.631Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
 {"timestamp":"2026-07-04T10:59:16.489Z","level":"ERROR","file":"src\\utils\\Logger.js","message":"Error creating announcement: Announcement validation failed: author: Path `author` is required."}
+{"timestamp":"2026-07-04T11:00:08.123Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T11:00:08.124Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T11:00:08.635Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T11:00:08.658Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
