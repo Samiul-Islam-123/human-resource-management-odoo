@@ -1,0 +1,18 @@
+{"timestamp":"2026-07-04T07:15:15.901Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T07:15:15.902Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T07:15:15.903Z","level":"ERROR","file":"src\\utils\\Logger.js","message":"Error while connecting to Mongo : The `uri` parameter to `openUri()` must be a string, got \"undefined\". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string."}
+{"timestamp":"2026-07-04T07:15:15.904Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T07:15:52.476Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T07:15:52.477Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T07:15:59.447Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T07:15:59.447Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T07:16:29.488Z","level":"ERROR","file":"src\\utils\\Logger.js","message":"Error while connecting to Mongo : 901C0000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:openssl\\ssl\\record\\rec_layer_s3.c:918:SSL alert number 80\n"}
+{"timestamp":"2026-07-04T07:16:29.489Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T07:17:47.611Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T07:17:47.612Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T07:18:17.683Z","level":"ERROR","file":"src\\utils\\Logger.js","message":"Error while connecting to Mongo : C8600000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:openssl\\ssl\\record\\rec_layer_s3.c:918:SSL alert number 80\n"}
+{"timestamp":"2026-07-04T07:18:17.684Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T07:20:19.050Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T07:20:19.051Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T07:20:19.548Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T07:20:19.548Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
