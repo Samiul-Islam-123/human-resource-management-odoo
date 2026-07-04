@@ -29,11 +29,11 @@ const STATUS_CONFIG = {
 };
 
 export const StatusButton = ({ role = 'employee' }) => {
-  const { userStatus, checkInTime, checkOutTime, handleCheckIn, handleCheckOut } = useAttendance();
+  const { userStatus, checkInTime, checkOutTime, handleCheckIn, handleCheckOut, isLoading } = useAttendance();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
-  const config = STATUS_CONFIG[userStatus];
+  const config = STATUS_CONFIG[userStatus] || STATUS_CONFIG['absent'];
 
   useEffect(() => {
     const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
@@ -41,9 +41,9 @@ export const StatusButton = ({ role = 'employee' }) => {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  const handleAction = () => {
-    if (userStatus === 'absent') handleCheckIn();
-    else if (userStatus === 'checked-in') handleCheckOut();
+  const handleAction = async () => {
+    if (userStatus === 'absent') await handleCheckIn();
+    else if (userStatus === 'checked-in') await handleCheckOut();
     setOpen(false);
   };
 
@@ -52,11 +52,12 @@ export const StatusButton = ({ role = 'employee' }) => {
       {/* Trigger Button */}
       <button
         onClick={() => setOpen(o => !o)}
-        className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-semibold transition-all ${config.bg}`}
+        disabled={isLoading}
+        className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-semibold transition-all ${config.bg} ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
         title="Click to manage your attendance status"
       >
         {config.dot}
-        <span className={config.labelColor}>{config.label}</span>
+        <span className={config.labelColor}>{isLoading ? 'Updating...' : config.label}</span>
       </button>
 
       {/* Dropdown Panel */}
@@ -80,9 +81,10 @@ export const StatusButton = ({ role = 'employee' }) => {
           {config.action ? (
             <button
               onClick={handleAction}
-              className={`w-full py-2 rounded-lg text-sm font-semibold transition-colors ${config.actionColor}`}
+              disabled={isLoading}
+              className={`w-full py-2 rounded-lg text-sm font-semibold transition-colors ${config.actionColor} ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
-              {config.action} Now
+              {isLoading ? 'Processing...' : `${config.action} Now`}
             </button>
           ) : (
             <p className="text-center text-xs text-blue-500 font-medium py-2">

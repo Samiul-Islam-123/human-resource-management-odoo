@@ -1,11 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
-import { mockAttendanceLogs } from '../data/mock';
 import { Calendar as CalendarIcon, Download, Clock, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import api from '../utils/axios';
 
 export const Attendance = () => {
+  const [logs, setLogs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLogs = async () => {
+      try {
+        const res = await api.get('/attendance/my-records');
+        if (res.data.success) {
+          setLogs(res.data.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch attendance logs", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchLogs();
+  }, []);
+
+  const formatTime = (dateString) => {
+    if (!dateString) return 'In Progress';
+    return new Date(dateString).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+  };
+
+  const calculateDuration = (checkIn, checkOut) => {
+    if (!checkIn) return '--';
+    if (!checkOut) return 'Working...';
+    const diffMs = new Date(checkOut) - new Date(checkIn);
+    const diffHrs = Math.floor(diffMs / 3600000);
+    const diffMins = Math.floor((diffMs % 3600000) / 60000);
+    return `${diffHrs}h ${diffMins}m`;
+  };
+
+  const totalHours = logs.reduce((total, log) => {
+    if (!log.checkInTime || !log.checkOutTime) return total;
+    const diff = new Date(log.checkOutTime) - new Date(log.checkInTime);
+    return total + (diff / 3600000);
+  }, 0).toFixed(1);
+
   return (
     <div className="flex flex-col h-full space-y-6">
       
@@ -15,14 +54,14 @@ export const Attendance = () => {
           <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Time Tracking</p>
           <h1 className="text-3xl font-semibold text-gray-900 tracking-tight">Monthly Overview</h1>
         </div>
-        <div className="flex items-center gap-4 bg-white border border-gray-200 rounded-lg p-1">
+        {/* <div className="flex items-center gap-4 bg-white border border-gray-200 rounded-lg p-1">
           <button className="p-2 hover:bg-gray-50 rounded-md text-gray-600"><ChevronLeft size={20}/></button>
           <div className="text-center px-4">
-            <p className="text-sm font-semibold text-primary-DEFAULT">OCTOBER 2023</p>
-            <p className="text-xs text-gray-500">Current Month</p>
+            <p className="text-sm font-semibold text-primary-DEFAULT">CURRENT MONTH</p>
+            <p className="text-xs text-gray-500">Activity</p>
           </div>
           <button className="p-2 hover:bg-gray-50 rounded-md text-gray-600"><ChevronRight size={20}/></button>
-        </div>
+        </div> */}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1">
@@ -51,28 +90,39 @@ export const Attendance = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {mockAttendanceLogs.map((log) => (
-                  <tr key={log.id} className="hover:bg-gray-50/50 transition-colors">
-                    <td className="py-4 px-6 text-sm font-medium text-gray-900">{log.date}</td>
-                    <td className="py-4 px-6 text-sm text-gray-600">{log.checkIn}</td>
-                    <td className="py-4 px-6 text-sm text-gray-600">{log.checkOut}</td>
-                    <td className="py-4 px-6 text-sm text-gray-600 font-mono">{log.duration}</td>
-                    <td className="py-4 px-6">
-                      <Badge status={log.status}>{log.status}</Badge>
-                    </td>
+                {isLoading ? (
+                  <tr>
+                    <td colSpan="5" className="py-8 text-center text-gray-500">Loading records...</td>
                   </tr>
-                ))}
+                ) : logs.length === 0 ? (
+                  <tr>
+                    <td colSpan="5" className="py-8 text-center text-gray-500">No attendance records found.</td>
+                  </tr>
+                ) : (
+                  logs.map((log) => (
+                    <tr key={log._id} className="hover:bg-gray-50/50 transition-colors">
+                      <td className="py-4 px-6 text-sm font-medium text-gray-900">
+                        {new Date(log.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+                      </td>
+                      <td className="py-4 px-6 text-sm text-gray-600">{formatTime(log.checkInTime)}</td>
+                      <td className="py-4 px-6 text-sm text-gray-600">{formatTime(log.checkOutTime)}</td>
+                      <td className="py-4 px-6 text-sm text-gray-600 font-mono">{calculateDuration(log.checkInTime, log.checkOutTime)}</td>
+                      <td className="py-4 px-6">
+                        <Badge status={log.status}>{log.status}</Badge>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
           
           <div className="p-4 border-t border-gray-100 flex justify-between items-center text-sm text-gray-500">
-            <p>Showing 1-20 of 21 records</p>
+            <p>Showing {logs.length} records</p>
             <div className="flex gap-1">
               <button className="px-3 py-1.5 rounded-md hover:bg-gray-100 disabled:opacity-50" disabled>Previous</button>
               <button className="px-3 py-1.5 rounded-md bg-primary-DEFAULT text-white">1</button>
-              <button className="px-3 py-1.5 rounded-md hover:bg-gray-100">2</button>
-              <button className="px-3 py-1.5 rounded-md hover:bg-gray-100 text-gray-900 font-medium">Next</button>
+              <button className="px-3 py-1.5 rounded-md hover:bg-gray-100 disabled:opacity-50" disabled>Next</button>
             </div>
           </div>
         </Card>
@@ -86,15 +136,15 @@ export const Attendance = () => {
               <div className="w-10 h-10 rounded-full bg-purple-50 text-primary-DEFAULT flex items-center justify-center">
                 <Clock size={20} />
               </div>
-              <Badge className="bg-green-100 text-success border-none shadow-sm" dot={false}>+12% vs last month</Badge>
+              <Badge className="bg-green-100 text-success border-none shadow-sm" dot={false}>Active</Badge>
             </div>
-            <p className="text-sm font-medium text-gray-500 mb-1">Total Hours this Month</p>
+            <p className="text-sm font-medium text-gray-500 mb-1">Total Hours Logged</p>
             <div className="flex items-baseline gap-2 mb-4">
-              <span className="text-3xl font-bold text-gray-900">168.5</span>
-              <span className="text-sm font-medium text-gray-500">/ 176 hrs</span>
+              <span className="text-3xl font-bold text-gray-900">{totalHours}</span>
+              <span className="text-sm font-medium text-gray-500">hrs</span>
             </div>
             <div className="w-full bg-gray-100 rounded-full h-2">
-              <div className="bg-primary-DEFAULT h-2 rounded-full" style={{ width: '95%' }}></div>
+              <div className="bg-primary-DEFAULT h-2 rounded-full" style={{ width: `${Math.min((totalHours/160)*100, 100)}%` }}></div>
             </div>
           </Card>
 
@@ -103,53 +153,17 @@ export const Attendance = () => {
              <div className="w-10 h-10 rounded-full bg-orange-50 text-warning flex items-center justify-center mb-4">
                 <AlertCircle size={20} />
               </div>
-              <p className="text-sm font-medium text-gray-500 mb-1">Avg. Lateness</p>
+              <p className="text-sm font-medium text-gray-500 mb-1">Check-in Status</p>
               <div className="flex items-baseline gap-2 mb-3">
-                <span className="text-3xl font-bold text-gray-900">12m</span>
-                <span className="text-sm font-medium text-gray-500">Per occurrence</span>
+                <span className="text-3xl font-bold text-gray-900">Good</span>
               </div>
               <p className="text-sm text-gray-500 leading-relaxed">
-                3 times this month. Try to maintain the 9:00 AM standard.
+                Try to maintain the 9:00 AM standard to avoid lateness flags.
               </p>
           </Card>
 
-          {/* Remaining Leave */}
-          <Card className="bg-primary-DEFAULT border-none text-white p-6 relative overflow-hidden">
-            <div className="relative z-10">
-              <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center mb-6">
-                <CalendarIcon size={20} className="text-white" />
-              </div>
-              <p className="text-sm font-medium text-white/80 mb-1">Remaining Paid Leave</p>
-              <div className="flex items-baseline gap-2 mb-6">
-                <span className="text-4xl font-bold text-white">14</span>
-                <span className="text-lg font-medium text-white/80">Days</span>
-              </div>
-              <Button className="w-full bg-white text-primary-DEFAULT hover:bg-gray-50 border-none shadow-lg">
-                Request Time Off
-              </Button>
-            </div>
-            {/* Background pattern */}
-            <div className="absolute -right-4 top-1/2 -translate-y-1/2 opacity-10">
-              <CalendarIcon size={120} />
-            </div>
-          </Card>
+
           
-          {/* Attendance Score */}
-          <div>
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Attendance Score</p>
-            <Card className="p-6 flex items-center justify-center">
-              <div className="relative w-32 h-32 flex items-center justify-center">
-                <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                  <path className="text-gray-100" strokeWidth="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                  <path className="text-primary-DEFAULT" strokeWidth="3" strokeDasharray="92, 100" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                </svg>
-                <div className="absolute flex flex-col items-center justify-center text-center">
-                  <span className="text-2xl font-bold text-gray-900">92%</span>
-                  <span className="text-[10px] font-bold text-success uppercase tracking-wider">Excellent</span>
-                </div>
-              </div>
-            </Card>
-          </div>
         </div>
       </div>
       
@@ -158,29 +172,15 @@ export const Attendance = () => {
          <div className="flex items-start gap-2">
            <span className="w-2 h-2 rounded-full bg-success mt-1.5"></span>
            <div>
-             <p className="text-sm font-semibold text-gray-900">On Time</p>
-             <p className="text-xs text-gray-500">Checking in before 9:00 AM</p>
+             <p className="text-sm font-semibold text-gray-900">Present</p>
+             <p className="text-xs text-gray-500">Checked in today</p>
            </div>
          </div>
          <div className="flex items-start gap-2">
            <span className="w-2 h-2 rounded-full bg-danger mt-1.5"></span>
            <div>
-             <p className="text-sm font-semibold text-gray-900">Late</p>
-             <p className="text-xs text-gray-500">Checking in after 9:00 AM</p>
-           </div>
-         </div>
-         <div className="flex items-start gap-2">
-           <span className="w-2 h-2 rounded-full bg-warning mt-1.5"></span>
-           <div>
-             <p className="text-sm font-semibold text-gray-900">Overtime</p>
-             <p className="text-xs text-gray-500">Working beyond 8 hours/day</p>
-           </div>
-         </div>
-         <div className="flex items-start gap-2">
-           <span className="w-2 h-2 rounded-full bg-info mt-1.5"></span>
-           <div>
-             <p className="text-sm font-semibold text-gray-900">Paid Leave</p>
-             <p className="text-xs text-gray-500">Approved PTO or sick leave</p>
+             <p className="text-sm font-semibold text-gray-900">Absent</p>
+             <p className="text-xs text-gray-500">No show / Checked out</p>
            </div>
          </div>
       </div>

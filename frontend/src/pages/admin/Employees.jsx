@@ -1,18 +1,123 @@
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-import { Badge } from '../../components/ui/Badge';
-import { useAttendance } from '../../context/AttendanceContext';
-import { Filter, Plus, ChevronRight, TrendingUp } from 'lucide-react';
+import { Filter, Plus, TrendingUp, Eye, EyeOff, Search, Edit2, Trash2 } from 'lucide-react';
+import { EmployeeModal } from '../../components/AddEmployeeModal';
+import api from '../../utils/axios';
 
 const StatusDot = ({ status }) => {
-  if (status === 'checked-in') return <span className="w-2.5 h-2.5 rounded-full bg-green-500 ring-2 ring-green-200 inline-block" title="Checked In" />;
+  if (status === 'checked-in' || status === 'active') return <span className="w-2.5 h-2.5 rounded-full bg-green-500 ring-2 ring-green-200 inline-block" title="Active" />;
   if (status === 'on-leave') return <span className="text-sm" title="On Leave">✈️</span>;
-  return <span className="w-2.5 h-2.5 rounded-full bg-red-500 ring-2 ring-red-200 inline-block" title="Absent" />;
+  return <span className="w-2.5 h-2.5 rounded-full bg-red-500 ring-2 ring-red-200 inline-block" title="Inactive" />;
+};
+
+const PasswordReveal = ({ password }) => {
+  const [show, setShow] = useState(false);
+  if (!password) return <span className="text-gray-400 italic text-xs">Not generated</span>;
+
+  return (
+    <div className="flex items-center gap-2">
+      <span className="font-mono text-xs bg-gray-100 px-2 py-1 rounded w-24 truncate text-center">
+        {show ? password : '••••••••'}
+      </span>
+      <button onClick={() => setShow(!show)} className="text-gray-400 hover:text-gray-600 transition-colors">
+        {show ? <EyeOff size={14} /> : <Eye size={14} />}
+      </button>
+    </div>
+  );
 };
 
 export const Employees = () => {
-  const { employeeStatuses, updateEmployeeStatus } = useAttendance();
+  const [employees, setEmployees] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [editingEmployee, setEditingEmployee] = useState(null);
+
+  // Filter state
+  const [searchQuery, setSearchQuery] = useState('');
+  const [roleFilter, setRoleFilter] = useState('all');
+
+  const fetchEmployees = async () => {
+    try {
+      setIsLoading(true);
+      const res = await api.get('/users');
+      if (res.data.success) {
+        setEmployees(res.data.data.employees);
+      }
+    } catch (error) {
+      console.error("Failed to fetch employees", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
+
+  const handleOpenModal = (employee = null) => {
+    setEditingEmployee(employee);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setEditingEmployee(null);
+  };
+
+  const handleSubmitEmployee = async (formData) => {
+    setIsSubmitting(true);
+    try {
+      if (editingEmployee) {
+        const res = await api.patch(`/users/${editingEmployee._id}`, formData);
+        if (res.data.success) {
+          handleCloseModal();
+          fetchEmployees();
+        }
+      } else {
+        const res = await api.post('/users/add-employee', formData);
+        if (res.data.success) {
+          handleCloseModal();
+          fetchEmployees();
+        }
+      }
+    } catch (error) {
+      const msg = error.response?.data?.message || `Failed to ${editingEmployee ? 'update' : 'add'} employee.`;
+      alert(msg);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleDeleteEmployee = async (id, name) => {
+    if (window.confirm(`Are you sure you want to delete ${name}? This action cannot be undone.`)) {
+      try {
+        const res = await api.delete(`/users/${id}`);
+        if (res.data.success) {
+          fetchEmployees();
+        }
+      } catch (error) {
+        alert(error.response?.data?.message || 'Failed to delete employee.');
+      }
+    }
+  };
+
+  // Apply filters
+  const filteredEmployees = useMemo(() => {
+    return employees.filter(emp => {
+      const matchesSearch = 
+        (emp.firstName + ' ' + emp.lastName).toLowerCase().includes(searchQuery.toLowerCase()) ||
+        emp.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        emp.employeeId.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      const matchesRole = roleFilter === 'all' || emp.role === roleFilter;
+
+      return matchesSearch && matchesRole;
+    });
+  }, [employees, searchQuery, roleFilter]);
+
+  const activeCount = employees.filter(e => e.isActive).length;
 
   return (
     <div className="flex flex-col h-full space-y-6">
@@ -26,15 +131,11 @@ export const Employees = () => {
           </div>
           <div className="flex justify-between items-end">
             <div>
-              <p className="text-4xl font-bold text-gray-900 mb-1">142</p>
+              <p className="text-4xl font-bold text-gray-900 mb-1">{employees.length}</p>
               <p className="text-sm font-medium text-success flex items-center gap-1">
-                <TrendingUp size={14} /> +4.5% vs last month
+                <TrendingUp size={14} /> Real-time count
               </p>
             </div>
-            {/* Decorative chart line */}
-            <svg width="80" height="40" viewBox="0 0 80 40" fill="none" stroke="currentColor" className="text-primary-DEFAULT" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 30l15-10 15 15 20-25 20 15" />
-            </svg>
           </div>
         </Card>
 
@@ -45,16 +146,8 @@ export const Employees = () => {
           </div>
           <div className="flex justify-between items-end">
             <div>
-              <p className="text-4xl font-bold text-gray-900 mb-1 text-primary-DEFAULT">128</p>
-              <p className="text-sm font-medium text-gray-500">90% presence rate</p>
-            </div>
-            {/* Decorative circle chart */}
-            <div className="relative w-12 h-12 flex items-center justify-center">
-              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                <path className="text-white" strokeWidth="4" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                <path className="text-primary-DEFAULT" strokeWidth="4" strokeDasharray="90, 100" strokeLinecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-              </svg>
-              <span className="absolute text-[10px] font-bold text-primary-DEFAULT">90%</span>
+              <p className="text-4xl font-bold text-gray-900 mb-1 text-primary-DEFAULT">{activeCount}</p>
+              <p className="text-sm font-medium text-gray-500">Active accounts</p>
             </div>
           </div>
         </Card>
@@ -69,118 +162,145 @@ export const Employees = () => {
               <p className="text-4xl font-bold text-white mb-1">4.8</p>
               <p className="text-sm font-medium text-gray-400">Top 5% in industry</p>
             </div>
-            <div className="flex gap-1 text-warning">
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-              <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-            </div>
           </div>
         </Card>
       </div>
 
       {/* Talent Directory Table */}
-      <Card className="flex-1 flex flex-col">
-        <div className="flex justify-between items-center p-6 border-b border-gray-100">
-          <h3 className="font-semibold text-gray-900">Talent Directory</h3>
-          <div className="flex gap-3">
-             <Button variant="secondary" className="gap-2">
-               <Filter size={16} /> Filter
-             </Button>
-             <Button variant="primary" className="gap-2">
-               <Plus size={16} /> Add Employee
-             </Button>
+      <Card className="flex-1 flex flex-col min-h-[400px]">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 border-b border-gray-100 gap-4">
+          <h3 className="font-semibold text-gray-900 whitespace-nowrap">Talent Directory</h3>
+          
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+             <div className="relative flex-1 sm:w-64">
+               <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+               <input 
+                 type="text" 
+                 placeholder="Search employees..." 
+                 value={searchQuery}
+                 onChange={(e) => setSearchQuery(e.target.value)}
+                 className="w-full pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-light"
+               />
+             </div>
+             
+             <div className="flex gap-2">
+               <select 
+                 value={roleFilter}
+                 onChange={(e) => setRoleFilter(e.target.value)}
+                 className="px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-light"
+               >
+                 <option value="all">All Roles</option>
+                 <option value="admin">Admin</option>
+                 <option value="employee">Employee</option>
+                 <option value="hr">HR</option>
+               </select>
+
+               <Button variant="primary" className="gap-2 whitespace-nowrap" onClick={() => handleOpenModal()}>
+                 <Plus size={16} /> <span className="hidden sm:inline">Add Employee</span>
+               </Button>
+             </div>
           </div>
         </div>
         
         <div className="flex-1 overflow-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="bg-gray-50/50">
-                <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Employee</th>
-                <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Department</th>
-                <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Check In</th>
-                <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Check Out</th>
-                <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {employeeStatuses.map((emp) => (
-                <tr key={emp.id} className="hover:bg-gray-50/50 transition-colors group">
-                  <td className="py-4 px-6">
-                    <div className="flex items-center gap-3">
-                      <div className="relative">
-                        <img src={emp.avatar} alt="" className="w-10 h-10 rounded-full object-cover border border-gray-200" />
-                        <span className="absolute -bottom-0.5 -right-0.5 flex items-center justify-center">
-                          <StatusDot status={emp.status} />
-                        </span>
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-gray-900">{emp.name}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="py-4 px-6">
-                    <span className="inline-flex px-2.5 py-1 rounded-md text-xs font-medium bg-blue-50 text-blue-600">Engineering</span>
-                  </td>
-                  <td className="py-4 px-6">
-                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${
-                      emp.status === 'checked-in' ? 'bg-green-50 text-green-700' :
-                      emp.status === 'on-leave' ? 'bg-blue-50 text-blue-700' :
-                      'bg-red-50 text-red-700'
-                    }`}>
-                      <StatusDot status={emp.status} />
-                      {emp.status === 'checked-in' ? 'Checked In' : emp.status === 'on-leave' ? 'On Leave' : 'Absent'}
-                    </span>
-                  </td>
-                  <td className="py-4 px-6 text-sm text-gray-600 font-mono">{emp.checkIn ?? '--:--'}</td>
-                  <td className="py-4 px-6 text-sm text-gray-600 font-mono">{emp.checkOut ?? '--:--'}</td>
-                  <td className="py-4 px-6 text-right">
-                    <div className="flex items-center justify-end gap-2">
-                      {emp.status !== 'on-leave' && (
-                        emp.status === 'absent' ? (
-                          <button
-                            onClick={() => updateEmployeeStatus(emp.id, 'checked-in')}
-                            className="px-3 py-1 rounded-lg text-xs font-semibold bg-green-50 text-green-700 hover:bg-green-100 border border-green-200 transition-colors"
-                          >
-                            Check In
-                          </button>
-                        ) : (
-                          <button
-                            onClick={() => updateEmployeeStatus(emp.id, 'absent')}
-                            className="px-3 py-1 rounded-lg text-xs font-semibold bg-red-50 text-red-700 hover:bg-red-100 border border-red-200 transition-colors"
-                          >
-                            Check Out
-                          </button>
-                        )
-                      )}
-                      <button
-                        onClick={() => updateEmployeeStatus(emp.id, 'on-leave')}
-                        className="px-3 py-1 rounded-lg text-xs font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 transition-colors"
-                      >
-                        ✈️ Leave
-                      </button>
-                    </div>
-                  </td>
+          {isLoading ? (
+            <div className="flex items-center justify-center h-full min-h-[200px]">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-DEFAULT"></div>
+            </div>
+          ) : filteredEmployees.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full min-h-[200px] text-gray-500">
+              <p>No employees found matching your criteria.</p>
+            </div>
+          ) : (
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-gray-50/50">
+                  <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Employee</th>
+                  <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Employee ID</th>
+                  <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Role & Dept</th>
+                  <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Contact</th>
+                  <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
+                  <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Initial Password</th>
+                  <th className="py-4 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="p-4 border-t border-gray-100 flex justify-between items-center text-sm text-gray-500">
-          <p>Showing 4 of 142 employees</p>
-          <div className="flex gap-1">
-            <button className="px-3 py-1.5 rounded-md hover:bg-gray-100 disabled:opacity-50" disabled>Previous</button>
-            <button className="px-3 py-1.5 rounded-md bg-primary-DEFAULT text-white">1</button>
-            <button className="px-3 py-1.5 rounded-md hover:bg-gray-100">2</button>
-            <button className="px-3 py-1.5 rounded-md hover:bg-gray-100">3</button>
-            <button className="px-3 py-1.5 rounded-md hover:bg-gray-100 text-gray-900 font-medium">Next</button>
-          </div>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {filteredEmployees.map((emp) => (
+                  <tr key={emp._id} className="hover:bg-gray-50/50 transition-colors group">
+                    <td className="py-4 px-6">
+                      <div className="flex items-center gap-3">
+                        <div className="relative">
+                          <img src={emp.profilePicture || `https://ui-avatars.com/api/?name=${emp.firstName}+${emp.lastName}`} alt="" className="w-10 h-10 rounded-full object-cover border border-gray-200" />
+                          <span className="absolute -bottom-0.5 -right-0.5 flex items-center justify-center">
+                            <StatusDot status={emp.isActive ? 'active' : 'inactive'} />
+                          </span>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900">{emp.firstName} {emp.lastName}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-4 px-6">
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-gray-100 text-gray-800 border border-gray-200">
+                        {emp.employeeId || 'N/A'}
+                      </span>
+                    </td>
+                    <td className="py-4 px-6">
+                      <div className="flex flex-col gap-1">
+                        <span className="inline-flex w-fit px-2 py-0.5 rounded text-[10px] font-semibold bg-gray-100 text-gray-600 uppercase">
+                          {emp.role}
+                        </span>
+                        <span className="text-xs text-gray-500">{emp.department || 'No Dept'}</span>
+                      </div>
+                    </td>
+                    <td className="py-4 px-6">
+                      <p className="text-sm text-gray-900">{emp.email}</p>
+                      <p className="text-xs text-gray-500">{emp.phone || 'No phone'}</p>
+                    </td>
+                    <td className="py-4 px-6">
+                      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${
+                        emp.isActive ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
+                      }`}>
+                        <StatusDot status={emp.isActive ? 'active' : 'inactive'} />
+                        {emp.isActive ? 'Active' : 'Inactive'}
+                      </span>
+                    </td>
+                    <td className="py-4 px-6">
+                      <PasswordReveal password={emp.samplePassword} />
+                    </td>
+                    <td className="py-4 px-6 text-right">
+                      <div className="flex items-center justify-end gap-2">
+                        <button 
+                          onClick={() => handleOpenModal(emp)}
+                          className="p-1.5 rounded-lg text-gray-500 hover:bg-white hover:text-primary-DEFAULT hover:shadow-sm transition-all"
+                          title="Edit Employee"
+                        >
+                          <Edit2 size={16} />
+                        </button>
+                        <button 
+                          onClick={() => handleDeleteEmployee(emp._id, `${emp.firstName} ${emp.lastName}`)}
+                          className="p-1.5 rounded-lg text-gray-500 hover:bg-red-50 hover:text-red-600 hover:shadow-sm transition-all"
+                          title="Delete Employee"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </Card>
+
+      <EmployeeModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onSubmit={handleSubmitEmployee}
+        isLoading={isSubmitting}
+        initialData={editingEmployee}
+      />
     </div>
   );
 };

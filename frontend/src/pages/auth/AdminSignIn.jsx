@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
-import { ShieldCheck, ArrowRight, Key, Fingerprint } from 'lucide-react';
+import { ShieldCheck, ArrowRight } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 export const AdminSignIn = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const handleSignIn = (e) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSignIn = async (e) => {
     e.preventDefault();
-    navigate('/admin/dashboard');
+    setError('');
+    setIsLoading(true);
+
+    try {
+      await login(email, password, 'admin');
+      navigate('/admin/dashboard');
+    } catch (err) {
+      setError(err.message || 'Login failed. Please check your credentials.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -47,12 +64,25 @@ export const AdminSignIn = () => {
               Sign in to manage your organization.
             </p>
 
+            {error && (
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
+                {error}
+              </div>
+            )}
+
             <form onSubmit={handleSignIn} className="space-y-5">
               <div>
                 <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">Admin Email</label>
                 <div className="relative">
                   <MailIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                  <input type="email" className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 transition-all" placeholder="admin@acme.com" required />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 transition-all"
+                    placeholder="admin@acme.com"
+                    required
+                  />
                 </div>
               </div>
               
@@ -63,12 +93,19 @@ export const AdminSignIn = () => {
                 </div>
                 <div className="relative">
                   <LockIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                  <input type="password" className="w-full pl-10 pr-10 py-2.5 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 transition-all" placeholder="••••••••" required />
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full pl-10 pr-10 py-2.5 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 transition-all"
+                    placeholder="••••••••"
+                    required
+                  />
                 </div>
               </div>
               
-              <Button type="submit" className="w-full py-3 text-base flex justify-center items-center gap-2 mt-4 bg-gray-900 hover:bg-black text-white">
-                Sign In <ArrowRight size={18} />
+              <Button type="submit" disabled={isLoading} className="w-full py-3 text-base flex justify-center items-center gap-2 mt-4 bg-gray-900 hover:bg-black text-white">
+                {isLoading ? 'Signing In...' : 'Sign In'} <ArrowRight size={18} />
               </Button>
             </form>
 

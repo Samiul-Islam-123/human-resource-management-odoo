@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '../../components/ui/Button';
-import { Shield, Key, Fingerprint, ArrowRight } from 'lucide-react';
+import { Shield, ArrowRight } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 export const EmployeeSignIn = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
+  
+  const [employeeId, setEmployeeId] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
-    navigate('/');
+    setError('');
+    setIsLoading(true);
+    
+    try {
+      await login(employeeId, password, 'employee');
+      navigate('/');
+    } catch (err) {
+      setError(err.message || 'Login failed. Please check your credentials.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -53,15 +70,23 @@ export const EmployeeSignIn = () => {
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Sign In</h2>
             <p className="text-gray-500 mb-8">Access your professional workspace</p>
 
+            {error && (
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
+                {error}
+              </div>
+            )}
+
             <form onSubmit={handleSignIn} className="space-y-5">
               <div>
-                <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">Login ID / Email</label>
+                <label className="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">Employee ID</label>
                 <div className="relative">
                   <MailIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                   <input
-                    type="email"
+                    type="text"
+                    value={employeeId}
+                    onChange={(e) => setEmployeeId(e.target.value)}
                     className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light focus:border-primary-DEFAULT transition-all"
-                    placeholder="name@company.com"
+                    placeholder="e.g. OIJODO20240001"
                     required
                   />
                 </div>
@@ -76,6 +101,8 @@ export const EmployeeSignIn = () => {
                   <LockIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                   <input
                     type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="w-full pl-10 pr-10 py-2.5 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-light focus:border-primary-DEFAULT transition-all"
                     placeholder="••••••••"
                     required
@@ -89,27 +116,10 @@ export const EmployeeSignIn = () => {
                 <label htmlFor="remember" className="text-sm text-gray-600">Remember for 30 days</label>
               </div>
 
-              <Button type="submit" variant="primary" className="w-full py-3 text-base flex justify-center items-center gap-2">
-                Sign In <ArrowRight size={18} />
+              <Button type="submit" variant="primary" disabled={isLoading} className="w-full py-3 text-base flex justify-center items-center gap-2">
+                {isLoading ? 'Signing In...' : 'Sign In'} <ArrowRight size={18} />
               </Button>
             </form>
-
-            {/*<div className="my-8 flex items-center gap-4 before:h-px before:flex-1 before:bg-gray-200 after:h-px after:flex-1 after:bg-gray-200">
-              <span className="text-xs font-medium text-gray-400 uppercase tracking-wider">Or continue with</span>
-            </div>
-
-             <div className="grid grid-cols-2 gap-4">
-              <Button variant="secondary" className="flex items-center justify-center gap-2 py-2.5 border-gray-200 text-gray-700">
-                 <Key size={18} className="text-gray-500" /> SSO
-              </Button>
-              <Button variant="secondary" className="flex items-center justify-center gap-2 py-2.5 border-gray-200 text-gray-700">
-                 <Fingerprint size={18} className="text-gray-500" /> Biometric
-              </Button>
-            </div>
-
-            <div className="mt-8 text-center text-sm text-gray-500">
-              Don't have an account? <Link to="/signup" className="text-primary-DEFAULT font-semibold hover:underline">Sign Up</Link>
-            </div> */}
 
             <div className="mt-12 pt-8 border-t border-gray-100 flex justify-center gap-6 text-xs text-gray-400 font-medium">
               <a href="#" className="hover:text-gray-600">Privacy Policy</a>
@@ -130,3 +140,4 @@ export const EmployeeSignIn = () => {
 const MailIcon = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>;
 const LockIcon = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>;
 const EyeIcon = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" /><circle cx="12" cy="12" r="3" /></svg>;
+

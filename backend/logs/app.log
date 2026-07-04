@@ -16,3 +16,238 @@
 {"timestamp":"2026-07-04T07:20:19.051Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
 {"timestamp":"2026-07-04T07:20:19.548Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
 {"timestamp":"2026-07-04T07:20:19.548Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T07:42:48.550Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T07:42:48.552Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T07:42:49.074Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T07:42:49.075Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T08:20:13.201Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T08:20:13.202Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T08:20:13.733Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T08:20:13.734Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T08:26:26.527Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T08:26:26.528Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T08:26:27.035Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T08:26:27.036Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T08:28:27.012Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T08:28:27.014Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T08:28:27.543Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T08:28:27.544Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T08:28:39.927Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T08:28:39.928Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T08:28:40.508Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T08:28:40.509Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T08:30:26.150Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T08:30:26.151Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T08:30:26.722Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T08:30:26.722Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T08:32:03.144Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T08:32:03.145Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T08:32:03.660Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T08:32:03.661Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T08:32:48.218Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T08:32:48.219Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T08:32:48.699Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T08:32:48.700Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T08:34:52.220Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T08:34:52.222Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T08:34:52.760Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T08:34:52.762Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T08:40:13.400Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T08:40:13.401Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T08:40:14.006Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T08:40:14.007Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T08:43:23.494Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T08:43:23.496Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T08:43:24.109Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T08:43:24.110Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T08:51:55.387Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T08:51:55.388Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T08:51:55.906Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T08:51:55.907Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T08:52:25.874Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T08:52:25.875Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T08:52:26.339Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T08:52:26.339Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T08:52:37.209Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T08:52:37.210Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T08:52:37.660Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T08:52:37.660Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T08:52:47.399Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T08:52:47.400Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T08:52:47.856Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T08:52:47.857Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T08:52:54.468Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T08:52:54.469Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T08:52:54.935Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T08:52:54.936Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T08:55:36.817Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T08:55:36.818Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T08:55:37.340Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T08:55:37.341Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:15:50.697Z","level":"ERROR","file":"src\\utils\\Logger.js","message":"Error while generating JWT token: secretOrPrivateKey must have a value"}
+{"timestamp":"2026-07-04T09:15:50.697Z","level":"ERROR","file":"src\\utils\\Logger.js","message":"Error during login: secretOrPrivateKey must have a value"}
+{"timestamp":"2026-07-04T09:16:57.741Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:16:57.742Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:16:58.290Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:16:58.291Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:24:26.353Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:24:26.353Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:24:26.857Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:24:26.858Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:24:34.889Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:24:34.890Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:24:35.466Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:24:35.467Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:24:43.023Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:24:43.024Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:24:43.800Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:24:43.801Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:37:47.532Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:37:47.533Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:37:48.055Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:37:48.056Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:38:03.464Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:38:03.465Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:38:03.951Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:38:03.951Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:38:09.823Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:38:09.824Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:38:10.327Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:38:10.327Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:38:16.006Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:38:16.007Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:38:16.588Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:38:16.588Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:46:36.077Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:46:36.077Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:46:36.886Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:46:36.887Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:46:41.986Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:46:41.986Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:46:42.462Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:46:42.462Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:46:48.474Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:46:48.475Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:46:48.928Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:46:48.928Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:48:20.379Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:48:20.379Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:48:21.209Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:48:21.210Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:48:31.750Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:48:31.750Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:48:32.207Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:48:32.207Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:48:44.524Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:48:44.525Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:48:45.087Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:48:45.087Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:58:45.159Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:58:45.160Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:58:45.712Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:58:45.713Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:59:05.703Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:59:05.704Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:59:06.217Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:59:06.218Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:59:13.743Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:59:13.744Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:59:14.284Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:59:14.284Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T09:59:30.824Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T09:59:30.825Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T09:59:31.439Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T09:59:31.453Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:00:29.768Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:00:29.769Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:00:30.365Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:00:30.379Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:07:12.438Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:07:12.438Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:07:13.000Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:07:13.016Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:07:30.410Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:07:30.410Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:07:31.175Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:07:31.189Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:07:37.727Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:07:37.727Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:07:38.247Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:07:38.261Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:07:44.674Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:07:44.675Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:07:45.233Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:07:45.248Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:08:04.507Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:08:04.507Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:08:05.007Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:08:05.021Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:08:11.069Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:08:11.069Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:08:11.573Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:08:11.587Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:08:16.992Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:08:16.992Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:08:17.876Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:08:17.891Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:08:23.183Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:08:23.184Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:08:23.694Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:08:23.708Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:08:29.177Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:08:29.178Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:08:29.665Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:08:29.680Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:10:13.600Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:10:13.600Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:10:14.154Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:10:14.168Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:29:19.440Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:29:19.441Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:29:19.939Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:29:19.954Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:29:27.584Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:29:27.584Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:29:28.036Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:29:28.050Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:29:38.950Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:29:38.951Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:29:39.412Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:29:39.428Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:30:01.775Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:30:01.775Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:30:02.248Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:30:02.262Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:40:07.362Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:40:07.363Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:40:07.871Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:40:07.887Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:40:40.749Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:40:40.750Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:40:41.204Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:40:41.219Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:41:21.320Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:41:21.320Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:41:21.868Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:41:21.882Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:55:28.583Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:55:28.584Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:55:29.161Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:55:29.193Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:56:14.548Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:56:14.549Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:56:15.075Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:56:15.103Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:58:36.936Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:58:36.937Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:58:37.538Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:58:37.568Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:58:41.471Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:58:41.472Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:58:41.997Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:58:42.022Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:58:48.926Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Server is starting..."}
+{"timestamp":"2026-07-04T10:58:48.932Z","level":"INFO","file":"src\\utils\\Logger.js","message":"Connecting to MongoDB ..."}
+{"timestamp":"2026-07-04T10:58:49.601Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Connected to mongoDB "}
+{"timestamp":"2026-07-04T10:58:49.631Z","level":"SUCCESS","file":"src\\utils\\Logger.js","message":"Server is up and running on PORT : 5500"}
+{"timestamp":"2026-07-04T10:59:16.489Z","level":"ERROR","file":"src\\utils\\Logger.js","message":"Error creating announcement: Announcement validation failed: author: Path `author` is required."}

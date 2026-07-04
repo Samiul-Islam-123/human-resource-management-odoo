@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, CalendarCheck, CalendarDays, FileText, Settings, LogOut, Users } from 'lucide-react';
+import { LayoutDashboard, CalendarCheck, CalendarDays, FileText, Settings, LogOut, Users, Megaphone } from 'lucide-react';
 import { cn } from '../utils/cn';
 
 export const Sidebar = ({ role = 'employee' }) => {
@@ -15,6 +15,9 @@ export const Sidebar = ({ role = 'employee' }) => {
   const adminNav = [
     { name: 'Dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
     { name: 'Employees', path: '/admin/employees', icon: Users },
+    { name: 'Leave Requests', path: '/admin/time-off', icon: CalendarDays },
+    { name: 'Announcements', path: '/admin/announcements', icon: Megaphone },
+    { name: 'Audit Logs', path: '/admin/audit-logs', icon: FileText },
     { name: 'Settings', path: '/admin/settings', icon: Settings }
   ];
 

@@ -1,17 +1,67 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
-import { mockUser, mockAnnouncements, mockAttendanceLogs } from '../data/mock';
-import { Clock, Calendar as CalendarIcon, FileText, Gift, ChevronRight } from 'lucide-react';
+import { Clock, Calendar as CalendarIcon, FileText, Gift, ChevronRight, Activity, MapPin } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import api from '../utils/axios';
+
+const DashboardSkeleton = () => (
+  <div className="flex flex-col h-full space-y-6 animate-pulse">
+    <div>
+      <div className="h-8 bg-gray-200 rounded-md w-64 mb-2"></div>
+      <div className="h-4 bg-gray-200 rounded-md w-48"></div>
+    </div>
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <Card className="col-span-2 p-6 h-48 bg-gray-100/50"></Card>
+      <Card className="p-6 h-48 bg-gray-100/50"></Card>
+    </div>
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1">
+      <Card className="col-span-2 p-6 bg-gray-100/50"></Card>
+      <Card className="p-6 bg-gray-100/50"></Card>
+    </div>
+  </div>
+);
 
 export const Dashboard = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [stats, setStats] = useState(null);
+  const [announcements, setAnnouncements] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        const [statsRes, annRes] = await Promise.all([
+          api.get('/dashboard/employee'),
+          api.get('/announcements?limit=5')
+        ]);
+        if (statsRes.data.success) setStats(statsRes.data.data);
+        if (annRes.data.success) setAnnouncements(annRes.data.data);
+      } catch (error) {
+        console.error("Error fetching dashboard data", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchDashboardData();
+  }, []);
+
+  if (isLoading || !stats) {
+    return <DashboardSkeleton />;
+  }
+
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
   return (
     <div className="flex flex-col h-full space-y-6">
       {/* Welcome Header */}
       <div>
-        <h1 className="text-3xl font-semibold text-gray-900 tracking-tight">Welcome back, {mockUser.name.split(' ')[0]}</h1>
-        <p className="text-gray-500 mt-1">Thursday, October 24th, 2023</p>
+        <h1 className="text-3xl font-semibold text-gray-900 tracking-tight">Welcome back, {user?.name?.split(' ')[0]}</h1>
+        <p className="text-gray-500 mt-1">{formattedDate}</p>
       </div>
 
       {/* Top Cards Row */}
@@ -21,11 +71,11 @@ export const Dashboard = () => {
           <div className="flex justify-between items-start mb-6">
             <div>
               <h3 className="font-semibold text-gray-900">My Attendance</h3>
-              <p className="text-sm text-gray-500">This Week: Oct 20 - Oct 24</p>
+              <p className="text-sm text-gray-500">This Week</p>
             </div>
             <div className="flex gap-3">
-               <Button variant="primary" size="sm">Check In</Button>
-               <Button variant="secondary" size="sm">History</Button>
+               <Button variant="primary" size="sm" onClick={() => navigate('/attendance')}>Check In</Button>
+               <Button variant="secondary" size="sm" onClick={() => navigate('/attendance')}>History</Button>
             </div>
           </div>
           
@@ -33,17 +83,17 @@ export const Dashboard = () => {
             <div className="bg-gray-50 rounded-xl p-4">
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Hours Worked</p>
               <div className="flex items-baseline gap-1">
-                <span className="text-2xl font-bold text-primary-DEFAULT">32.5h</span>
+                <span className="text-2xl font-bold text-primary-DEFAULT">{stats.hoursWorkedThisWeek}h</span>
                 <span className="text-sm text-gray-500">/ 40h</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-1.5 mt-3">
-                <div className="bg-primary-DEFAULT h-1.5 rounded-full" style={{ width: '80%' }}></div>
+                <div className="bg-primary-DEFAULT h-1.5 rounded-full transition-all duration-1000" style={{ width: `${Math.min((stats.hoursWorkedThisWeek / 40) * 100, 100)}%` }}></div>
               </div>
             </div>
             <div className="bg-gray-50 rounded-xl p-4">
                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Status</p>
                <div className="mt-2">
-                 <Badge status="ABSENT" dot={true}>Out of Office</Badge>
+                 <Badge status={stats.todayStatus} dot={true}>{stats.todayStatus}</Badge>
                </div>
             </div>
             <div className="bg-gray-50 rounded-xl p-4 relative overflow-hidden">
@@ -56,20 +106,20 @@ export const Dashboard = () => {
         </Card>
 
         {/* Time Off Card */}
-        <Card className="bg-primary-DEFAULT border-none text-white p-6 flex flex-col justify-between relative overflow-hidden">
+        <Card className="bg-primary-DEFAULT border-none text-white p-6 flex flex-col justify-between relative overflow-hidden group">
           <div className="flex justify-between items-start z-10">
             <h3 className="font-semibold text-white/90">Time Off</h3>
-            <button className="text-white/70 hover:text-white transition-colors">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+            <button onClick={() => navigate('/time-off')} className="text-white/70 hover:text-white transition-colors">
+              <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
           
           <div className="text-center my-6 z-10">
-            <h2 className="text-6xl font-bold tracking-tighter">24</h2>
+            <h2 className="text-6xl font-bold tracking-tighter">{user?.leaveBalance || 0}</h2>
             <p className="text-sm font-medium text-white/80 tracking-widest uppercase mt-1">Days Remaining</p>
           </div>
 
-          <Button className="w-full bg-white/20 hover:bg-white/30 text-white border-none shadow-none z-10 backdrop-blur-sm">
+          <Button onClick={() => navigate('/time-off')} className="w-full bg-white/20 hover:bg-white/30 text-white border-none shadow-none z-10 backdrop-blur-sm">
             Request Time Off
           </Button>
           
@@ -86,7 +136,7 @@ export const Dashboard = () => {
         <Card className="col-span-2 flex flex-col">
           <div className="flex justify-between items-center p-6 border-b border-gray-100">
             <h3 className="font-semibold text-gray-900">Recent Attendance Logs</h3>
-            <button className="text-sm text-primary-DEFAULT font-medium hover:underline">View All</button>
+            <button onClick={() => navigate('/attendance')} className="text-sm text-primary-DEFAULT font-medium hover:underline">View All</button>
           </div>
           <div className="flex-1 p-0 overflow-auto">
             <table className="w-full text-left border-collapse">
@@ -95,22 +145,30 @@ export const Dashboard = () => {
                   <th className="py-3 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Date</th>
                   <th className="py-3 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Check In</th>
                   <th className="py-3 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Check Out</th>
-                  <th className="py-3 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Duration</th>
                   <th className="py-3 px-6 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {mockAttendanceLogs.slice(0, 5).map((log) => (
-                  <tr key={log.id} className="hover:bg-gray-50/50 transition-colors">
-                    <td className="py-4 px-6 text-sm font-medium text-gray-900">{log.date}</td>
-                    <td className="py-4 px-6 text-sm text-gray-600">{log.checkIn}</td>
-                    <td className="py-4 px-6 text-sm text-gray-600">{log.checkOut}</td>
-                    <td className="py-4 px-6 text-sm text-gray-600">{log.duration}</td>
-                    <td className="py-4 px-6">
-                      <Badge status={log.status} dot={false}>{log.status}</Badge>
-                    </td>
-                  </tr>
-                ))}
+                {stats.recentAttendance.length === 0 ? (
+                  <tr><td colSpan="4" className="py-8 text-center text-gray-500">No recent logs.</td></tr>
+                ) : (
+                  stats.recentAttendance.map((log) => (
+                    <tr key={log._id} className="hover:bg-gray-50/50 transition-colors">
+                      <td className="py-4 px-6 text-sm font-medium text-gray-900">
+                        {new Date(log.date).toLocaleDateString()}
+                      </td>
+                      <td className="py-4 px-6 text-sm text-gray-600">
+                        {log.checkInTime ? new Date(log.checkInTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--'}
+                      </td>
+                      <td className="py-4 px-6 text-sm text-gray-600">
+                        {log.checkOutTime ? new Date(log.checkOutTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '--:--'}
+                      </td>
+                      <td className="py-4 px-6">
+                        <Badge status={log.status} dot={false}>{log.status}</Badge>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -121,67 +179,30 @@ export const Dashboard = () => {
           <div className="p-6 border-b border-gray-100">
             <h3 className="font-semibold text-gray-900">Company Announcements</h3>
           </div>
-          <div className="p-6 flex-1 flex flex-col gap-6 overflow-y-auto">
-            {mockAnnouncements.map((announcement) => (
-              <div key={announcement.id} className="flex gap-4 group">
-                <div className="w-px bg-gray-200 relative top-2 left-5 -z-10 group-last:bg-transparent hidden"></div>
-                <div className={`w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center ${announcement.color}`}>
-                   <span className="w-5 h-5 bg-current rounded-sm"></span> {/* Placeholder icon shape */}
-                </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-gray-900 mb-1">{announcement.title}</h4>
-                  <p className="text-sm text-gray-500 leading-relaxed mb-2">{announcement.desc}</p>
-                  <div className="flex items-center gap-2 text-xs font-medium text-gray-400 uppercase tracking-wider">
-                    <span>{announcement.author}</span>
-                    <span>•</span>
-                    <span>{announcement.time}</span>
+          <div className="p-6 flex-1 flex flex-col gap-6 overflow-y-auto max-h-[400px]">
+            {announcements.length === 0 ? (
+              <p className="text-gray-500 text-sm text-center mt-10">No announcements yet.</p>
+            ) : (
+              announcements.map((a) => (
+                <div key={a._id} className="flex gap-4 group">
+                  <div className={`w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center ${a.color}`}>
+                     <Activity size={18} />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-900 mb-1">{a.title}</h4>
+                    <p className="text-sm text-gray-500 leading-relaxed mb-2">{a.desc}</p>
+                    <div className="flex items-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                      <span>{a.author}</span>
+                      <span>•</span>
+                      <span>{new Date(a.createdAt).toLocaleDateString()}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
-          <div className="p-4 border-t border-gray-100 text-center">
-             <button className="text-xs font-semibold text-primary-DEFAULT uppercase tracking-wider hover:underline flex items-center justify-center gap-1 w-full">
-                View All Announcements <ChevronRight size={14} />
-             </button>
-          </div>
-        </Card>
-      </div>
-
-      {/* Bottom Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="p-4 flex items-center gap-4 hover:shadow-md transition-shadow cursor-pointer group">
-          <div className="w-12 h-12 rounded-xl bg-blue-50 text-info flex items-center justify-center group-hover:scale-110 transition-transform">
-            <CalendarIcon size={24} />
-          </div>
-          <div className="flex-1">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-0.5">Next Payday</p>
-            <p className="font-semibold text-gray-900 text-lg">October 31</p>
-          </div>
-          <ChevronRight className="text-gray-400" size={20} />
-        </Card>
-        
-        <Card className="p-4 flex items-center gap-4 hover:shadow-md transition-shadow cursor-pointer group">
-          <div className="w-12 h-12 rounded-xl bg-purple-50 text-primary-DEFAULT flex items-center justify-center group-hover:scale-110 transition-transform">
-            <FileText size={24} />
-          </div>
-          <div className="flex-1">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-0.5">Pending Tasks</p>
-            <p className="font-semibold text-gray-900 text-lg">04 Pending</p>
-          </div>
-          <ChevronRight className="text-gray-400" size={20} />
         </Card>
 
-        <Card className="p-4 flex items-center gap-4 hover:shadow-md transition-shadow cursor-pointer group">
-          <div className="w-12 h-12 rounded-xl bg-orange-50 text-warning flex items-center justify-center group-hover:scale-110 transition-transform">
-            <Gift size={24} />
-          </div>
-          <div className="flex-1">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-0.5">Celebrations</p>
-            <p className="font-semibold text-gray-900 text-lg">3 Birthdays</p>
-          </div>
-          <ChevronRight className="text-gray-400" size={20} />
-        </Card>
       </div>
     </div>
   );

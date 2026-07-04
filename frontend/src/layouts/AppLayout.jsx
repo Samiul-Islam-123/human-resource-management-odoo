@@ -3,10 +3,11 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { Search, Bell, HelpCircle } from 'lucide-react';
 import { Sidebar } from '../components/Sidebar';
 import { StatusButton } from '../components/StatusButton';
-import { mockUser } from '../data/mock';
+import { useAuth } from '../context/AuthContext';
 
 export const AppLayout = ({ role = 'employee' }) => {
   const location = useLocation();
+  const { user } = useAuth();
   
   // Format page title based on path
   const getPageTitle = () => {
@@ -54,7 +55,11 @@ export const AppLayout = ({ role = 'employee' }) => {
 
             <div className="flex items-center gap-3">
               <StatusButton role={role} />
-              <img src={mockUser.avatar} alt="Avatar" className="w-9 h-9 rounded-full object-cover border border-gray-200" />
+              {user && (
+                <div className="flex items-center gap-2">
+                  <img src={user.profilePicture || 'https://ui-avatars.com/api/?name=' + (user.firstName || 'U')} alt="Avatar" className="w-9 h-9 rounded-full object-cover border border-gray-200" />
+                </div>
+              )}
             </div>
           </div>
         </header>
